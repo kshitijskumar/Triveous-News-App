@@ -62,6 +62,7 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, NewsA
     private fun showingNewsOfTheTabSelected(type: String, from: String){
         rvNews.visibility= View.GONE
         pbLoading.visibility= View.VISIBLE
+        tvNoNews.visibility= View.GONE
          if (from=="c") {
              viewModel.getCategoryNewsFromRepo(type)
          }else{
@@ -74,7 +75,10 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, NewsA
                 pbLoading.visibility= View.GONE
                 rvNews.visibility= View.VISIBLE
             }else{
-                Toast.makeText(this, "Else block", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Something went wrong. Check your internet connection.", Toast.LENGTH_SHORT).show()
+                pbLoading.visibility= View.GONE
+                rvNews.visibility= View.VISIBLE
+                tvNoNews.visibility= View.VISIBLE
             }
         })
     }

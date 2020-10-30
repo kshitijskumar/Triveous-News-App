@@ -89,4 +89,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tabLayout" />
 
+    <TextView
+        android:id="@+id/tvNoNews"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Something Went wrong :("
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/rvNews"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tabLayout" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
