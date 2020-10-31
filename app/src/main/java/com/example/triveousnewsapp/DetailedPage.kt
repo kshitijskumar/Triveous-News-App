@@ -3,6 +3,7 @@ package com.example.triveousnewsapp
 import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.webkit.WebViewClient
 import kotlinx.android.synthetic.main.activity_detailed_page.*
 

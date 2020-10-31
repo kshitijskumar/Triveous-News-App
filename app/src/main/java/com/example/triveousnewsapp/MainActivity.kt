@@ -4,7 +4,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.triveousnewsapp.adapter.NewsAdapter
@@ -23,14 +22,13 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, NewsA
         setContentView(R.layout.activity_main)
 
         tabLayout.addOnTabSelectedListener(this)
-        tabLayout.getTabAt(0)?.select()
+        val tabPosition= viewModel.getCurrentTabPosition()
+        tabLayout.getTabAt(tabPosition)?.select()
 
         rvNews.layoutManager= LinearLayoutManager(this)
         val adapter= NewsAdapter(listOf(), this)
         rvNews.adapter= adapter
     }
-
-
 
     override fun onTabSelected(tab: TabLayout.Tab?) {
         tabSelected(tab?.text.toString())
@@ -44,23 +42,53 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, NewsA
 
     private fun tabSelected(tabName: String){
         when (tabName) {
-            "Business" -> showingNewsOfTheTabSelected("business","c")
-            "Entertainment" -> showingNewsOfTheTabSelected("entertainment","c")
-            "Sports" -> showingNewsOfTheTabSelected("sports","c")
-            "General" -> showingNewsOfTheTabSelected("general", "c")
-            "Health" -> showingNewsOfTheTabSelected("health", "c")
-            "Science" -> showingNewsOfTheTabSelected("science", "c")
-            "Technology" -> showingNewsOfTheTabSelected("technology","c")
-            "BBC" -> showingNewsOfTheTabSelected("bbc-news", "s")
-            "The Times of India" -> showingNewsOfTheTabSelected("the-times-of-india", "s")
-            "The Hindu" -> showingNewsOfTheTabSelected("the-hindu", "s")
+            "Business" -> {
+                showingNewsOfTheTabSelected("business", "c")
+                viewModel.setCurrentTabPosition(4)
+            }
+            "Entertainment" -> {
+                showingNewsOfTheTabSelected("entertainment", "c")
+                viewModel.setCurrentTabPosition(5)
+            }
+            "Sports" -> {
+                showingNewsOfTheTabSelected("sports", "c")
+                viewModel.setCurrentTabPosition(6)
+            }
+            "General" -> {
+                showingNewsOfTheTabSelected("general", "c")
+                viewModel.setCurrentTabPosition(3)
+            }
+            "Health" -> {
+                showingNewsOfTheTabSelected("health", "c")
+                viewModel.setCurrentTabPosition(7)
+            }
+            "Science" -> {
+                showingNewsOfTheTabSelected("science", "c")
+                viewModel.setCurrentTabPosition(8)
+            }
+            "Technology" -> {
+                showingNewsOfTheTabSelected("technology", "c")
+                viewModel.setCurrentTabPosition(9)
+            }
+            "BBC" -> {
+                showingNewsOfTheTabSelected("bbc-news", "s")
+                viewModel.setCurrentTabPosition(2)
+            }
+            "The Times of India" -> {
+                showingNewsOfTheTabSelected("the-times-of-india", "s")
+                viewModel.setCurrentTabPosition(0)
+            }
+            "The Hindu" -> {
+                showingNewsOfTheTabSelected("the-hindu", "s")
+                viewModel.setCurrentTabPosition(1)
+            }
 
         }
     }
 
 
     private fun showingNewsOfTheTabSelected(type: String, from: String){
-        rvNews.visibility= View.GONE
+        rvNews.visibility= View.INVISIBLE
         pbLoading.visibility= View.VISIBLE
         tvNoNews.visibility= View.GONE
          if (from=="c") {
@@ -74,10 +102,11 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, NewsA
                 rvNews.swapAdapter(adapter, true)
                 pbLoading.visibility= View.GONE
                 rvNews.visibility= View.VISIBLE
+                tvNoNews.visibility= View.GONE
+
             }else{
-                Toast.makeText(this, "Something went wrong. Check your internet connection.", Toast.LENGTH_SHORT).show()
                 pbLoading.visibility= View.GONE
-                rvNews.visibility= View.VISIBLE
+                rvNews.visibility= View.INVISIBLE
                 tvNoNews.visibility= View.VISIBLE
             }
         })

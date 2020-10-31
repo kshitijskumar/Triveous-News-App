@@ -19,7 +19,7 @@
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="The Times of India" />
+            android:text="The Times of India"/>
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
@@ -93,7 +93,7 @@
         android:id="@+id/tvNoNews"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Something Went wrong :("
+        android:text="Something went wrong :("
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/rvNews"
         app:layout_constraintEnd_toEndOf="parent"

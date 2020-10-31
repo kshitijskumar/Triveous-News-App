@@ -13,15 +13,22 @@ class MainViewModel @ViewModelInject constructor(
 ): ViewModel() {
 
     val newsLiveData= MutableLiveData<List<Articles>>()
+    private var tabPosition= 0
+
+    fun setCurrentTabPosition(position: Int){
+        tabPosition=position
+    }
+
+    fun getCurrentTabPosition()= tabPosition
 
     fun getCategoryNewsFromRepo(category: String)= viewModelScope.launch {
         repository.getNewsFromCategoryApi(category)
-        newsLiveData.postValue(repository.newsResult)
+        newsLiveData.postValue(repository.showNewsResult())
     }
 
     fun getSourceNewsFromRepo(source: String)= viewModelScope.launch {
         repository.getNewsFromSourceApi(source)
-        newsLiveData.postValue(repository.newsResult)
+        newsLiveData.postValue(repository.showNewsResult())
     }
 
 }

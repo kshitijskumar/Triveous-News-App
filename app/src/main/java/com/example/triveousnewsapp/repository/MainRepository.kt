@@ -11,28 +11,30 @@ import javax.inject.Inject
 class MainRepository @Inject constructor(
     private val newsService: NewsService
 ) {
-    var newsResult= listOf<Articles>()
+    private var newsResult= listOf<Articles>()
+
+    fun showNewsResult()= newsResult
 
     suspend fun getNewsFromCategoryApi(category: String){
         withContext(Dispatchers.IO){
-            try {
+            newsResult = try {
                 val response = newsService.getNewsFromCategory(category)
-                newsResult= response.body()!!.newsArticles
+                response.body()!!.newsArticles
             }catch (e: Exception){
                 Log.d("MainRepo", "In getNewsFromApi ${e.message}")
-                newsResult= listOf()
+                listOf()
             }
         }
     }
 
     suspend fun getNewsFromSourceApi(source: String){
         withContext(Dispatchers.IO){
-            try {
+            newsResult = try {
                 val response = newsService.getNewsFromSource(source)
-                newsResult= response.body()!!.newsArticles
+                response.body()!!.newsArticles
             }catch (e: Exception){
                 Log.d("MainRepo", "In getNewsFromApi ${e.message}")
-                newsResult= listOf()
+                listOf()
             }
         }
     }
