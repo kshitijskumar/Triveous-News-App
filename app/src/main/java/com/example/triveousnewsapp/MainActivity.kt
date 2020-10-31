@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.triveousnewsapp.adapter.NewsAdapter
@@ -22,6 +23,9 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, NewsA
         setContentView(R.layout.activity_main)
 
         tabLayout.addOnTabSelectedListener(this)
+        /**Gets the current tab position from the viewmodel
+         * and sets the tab at that position again.
+         */
         val tabPosition= viewModel.getCurrentTabPosition()
         tabLayout.getTabAt(tabPosition)?.select()
 
@@ -40,6 +44,10 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, NewsA
         tabSelected(tab?.text.toString())
     }
 
+    /**Distinguishes the tab by their name and calls the function to show the news corresponding to that
+     * tab in the recycler view.
+     * @param tabName The name/text of the tab
+     */
     private fun tabSelected(tabName: String){
         when (tabName) {
             "Business" -> {
@@ -86,7 +94,11 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, NewsA
         }
     }
 
-
+    /**Calls the function to get the news and observes the news result from the viewmodel and displays the news in the
+     * recycler view.
+     * @param type Category or Source of the news eg. The Times of India, Business etc.
+     * @param from Whether the news is from category(c) or from source(s)
+     */
     private fun showingNewsOfTheTabSelected(type: String, from: String){
         rvNews.visibility= View.INVISIBLE
         pbLoading.visibility= View.VISIBLE
@@ -112,9 +124,15 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, NewsA
         })
     }
 
+    /**Callback function to notify the activity that an item is clicked in the recycler view
+     * to perform the corresponding task ie. starting a new activity to show complete news in a
+     * webview.
+     * @param articleUrl The url of the article tapped.
+     */
     override fun newsItemClicked(articleUrl: String) {
         Intent(this, DetailedPage::class.java).also {
             it.putExtra("ArticleUrl", articleUrl)
+            Toast.makeText(this, "Opening news in webview", Toast.LENGTH_SHORT).show()
             startActivity(it)
         }
     }

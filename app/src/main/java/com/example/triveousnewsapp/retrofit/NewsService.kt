@@ -14,6 +14,6 @@ interface NewsService {
     suspend fun getNewsFromSource(@Query("sources") source: String): Response<NewsItems>
 
     companion object{
-        private const val API_KEY = "f88b67ba0e3c49d8badfbfd45227c557"
+        private const val API_KEY = "2b49ce3e318e4547aedeb8c6b3aca021"
     }
 }

@@ -15,6 +15,9 @@ class MainRepository @Inject constructor(
 
     fun showNewsResult()= newsResult
 
+    /**Calls the api and fetches the data and sets newsResult.
+     * @param category eg. Business, General, Health etc.
+     */
     suspend fun getNewsFromCategoryApi(category: String){
         withContext(Dispatchers.IO){
             newsResult = try {
@@ -27,6 +30,9 @@ class MainRepository @Inject constructor(
         }
     }
 
+    /**Calls the api and fetches the data and sets newsResult.
+     * @param source eg. The Times of India, The Hindu etc.
+     */
     suspend fun getNewsFromSourceApi(source: String){
         withContext(Dispatchers.IO){
             newsResult = try {

@@ -21,11 +21,18 @@ class MainViewModel @ViewModelInject constructor(
 
     fun getCurrentTabPosition()= tabPosition
 
+    /**Calls the repository to fetch news data from the api.
+     * The data from repository is then posted in newsLiveData.
+     * @param category Category like Business, General etc.
+     */
     fun getCategoryNewsFromRepo(category: String)= viewModelScope.launch {
         repository.getNewsFromCategoryApi(category)
         newsLiveData.postValue(repository.showNewsResult())
     }
-
+    /**Calls the repository to fetch news data from the api.
+     * The data from repository is then posted in newsLiveData.
+     * @param source Source like The Times of India, The Hindu etc.
+     */
     fun getSourceNewsFromRepo(source: String)= viewModelScope.launch {
         repository.getNewsFromSourceApi(source)
         newsLiveData.postValue(repository.showNewsResult())
